@@ -10,9 +10,18 @@ async function loadPokemon(){
     document.getElementById("cargando").textContent = "Cargando..."
 
     try {
-        
+        const res = await fetch(URL + query)
+        const data = await res.json()
+        const pokemonList = await Promise.all(
+            pokemonList.map(async(p)=>{
+                const res = await fetch(p.url)
+                return await res.json()
+            })
+        )
+        setState("pokemon",detailedPokemon)
+        setState("total",data.count)
     } catch {
-        
+        document.getElementById("cargando").textContent = "Error al cargar los Datos :("
     }
-
+    document.getElementById("cargando").textContent = ""
 }
