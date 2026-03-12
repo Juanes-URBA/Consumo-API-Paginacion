@@ -2,7 +2,7 @@ import { getState, setState } from "./state.js";
 
 const URL = "https://pokeapi.co/api/v2/pokemon"
 
-async function loadPokemon(){
+export async function loadPokemon(){
     const limit = getState("limit")
     const page = getState("page")
     const offset = limit * page
