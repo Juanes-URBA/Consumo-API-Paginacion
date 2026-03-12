@@ -6,9 +6,9 @@ const state = {
 }
 
 export function getState(key){
-    return getState[key]
+    return state[key]
 }
 
-export function setState(key){
+export function setState(key, value){
     state[key] = value
 }

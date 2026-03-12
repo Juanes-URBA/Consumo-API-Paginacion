@@ -12,12 +12,14 @@ export async function loadPokemon(){
     try {
         const res = await fetch(URL + query)
         const data = await res.json()
-        const pokemonList = await Promise.all(
-            pokemonList.map(async(p)=>{
-                const res = await fetch(p.url)
-                return await res.json()
+        const pokemonList = data.results;
+
+        const detailedPokemon = await Promise.all(
+            pokemonList.map(async (p) => {
+                const res = await fetch(p.url);
+                return await res.json();
             })
-        )
+        );
         setState("pokemon",detailedPokemon)
         setState("total",data.count)
     } catch {
