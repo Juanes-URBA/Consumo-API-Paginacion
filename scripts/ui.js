@@ -26,7 +26,25 @@ function renderPagination(){
 
     const totalPages = Math.ceil(total/limit)
 
-    for (let i = 0; i < totalPages; i++) {
+    let start = Math.max(0, page - 5);
+    let end = start + 10;
+
+    if(end > totalPages){
+        end = totalPages;
+        start = Math.max(0, end - 10);
+    }
+
+    const prevBtn = document.createElement("button");
+    prevBtn.textContent = "<<";
+    prevBtn.disabled = page === 0;
+
+    prevBtn.addEventListener("click", () => {
+        changePage(page - 1);
+    });
+
+    pagination.appendChild(prevBtn);
+
+    for (let i = start; i < end; i++) {
         const btn = document.createElement("button")
         btn.textContent = i + 1
 
@@ -39,6 +57,15 @@ function renderPagination(){
         })
         pagination.appendChild(btn)
     }
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = ">>";
+    nextBtn.disabled = page === totalPages - 1;
+
+    nextBtn.addEventListener("click", () => {
+        changePage(page + 1);
+    });
+    
+    pagination.appendChild(nextBtn);
 }
 
 export function render (){
